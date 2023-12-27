@@ -339,7 +339,7 @@ hist(forestfires$area)
 
 
 
-
+# Other methods
 ```{r}
 # Lasso
 grid <- 10 ^ seq(-5, 5, length = 100)
