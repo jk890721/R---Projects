@@ -1,5 +1,4 @@
 # Data import
-```{r}
 diabetes_data <- read.table("C:\\Users\\54088\\OneDrive\\桌面\\SW\\S5 2023\\STAT 4052\\HW\\Diabetes4.txt")
 
 summary(diabetes_data)
@@ -7,10 +6,9 @@ summary(diabetes_data)
 # For continuous values impute with mean of that variable. 
 # For categorical values exclude the observations with missingness from the analysis.
 
-```
 
 # Stage1 - dealing with missing data
-```{r}
+
 # stage 1 
 stage1_diabetes = diabetes_data
 
@@ -40,11 +38,11 @@ colnames(stage1_data)[12] <- "smoking_history_not_current"
 stage1_data <- subset(stage1_data, select = -c(3))
 
 summary(stage1_data)
-```
+
 
 
 # Stage1 - logistic regression
-```{r}
+
 library(leaps)
 
 set.seed(1234)
@@ -79,10 +77,10 @@ pchisq(model_logistic$deviance, 3343, lower.tail = FALSE)
 Pearson = sum(residuals(model_logistic, type = "pearson")^2)
 pchisq(Pearson, 3343, lower.tail = FALSE)
 
-```
+
 
 # Stage1 - LDA, QDA, KNN
-```{r}
+
 # Sensibly choose either KNN, LDA or QDA to predict diabetes
 # Has to explain why LDA is best among these three methods 
 # Lab9
@@ -159,10 +157,9 @@ err_knn_stage1 <- val_err6
 # Do ROC curve for LDA, QDA, and KNN. Compare the error rate. and we can see that lda has the minimum error rate. 
 data.frame(val_err4, val_err5, val_err6)
 
-```
 
 # Stage1 - Random Forest and Bagging 
-```{r}
+
 # Use either random forest, bagging or boosting to predict diabetes
 # Lab10
 # try bagging - classification
@@ -196,11 +193,11 @@ table(pre_rf_train, test_stage$diabetes)
 err_rf_stage1 <- mean(pre_rf_train!=test_stage$diabetes)
 err_rf_stage1
 
-```
+
 
 
 # Stage2 - Iterative Regression
-```{r}
+
 # iterative regression
 stage2_diabetes = diabetes_data
 
@@ -234,10 +231,10 @@ for(i in 1:n_iter){
   stage2_diabetes$diabetes[is.na(diabetes_data$diabetes)] = ifelse(pre_diabetes > 0.5, 1, 0)
 }
 
-```
+
 
 # Stage2 - Logistic Regression 
-```{r}
+
 # stage2
 stage2_diabetes$gender <- as.factor(stage2_diabetes$gender)
 stage2_diabetes$smoking_history <- as.factor(stage2_diabetes$smoking_history)
@@ -285,10 +282,10 @@ pchisq(model_logistic2$deviance, 3991, lower.tail = FALSE)
 
 Pearson2 = sum(residuals(model_logistic2, type = "pearson")^2)
 pchisq(Pearson2, 3991, lower.tail = FALSE)
-```
+
 
 # Stage2 - LDA, QDA, KNN
-```{r}
+
 # Sensibly choose either KNN, LDA or QDA to predict diabetes
 # Has to explain why LDA is best among these three methods 
 # Lab9
@@ -364,11 +361,11 @@ err_knn_stage2
 
 
 # Do ROC curve for LDA, QDA, and KNN. Compare the error rate. and we can see that lda has the minimum error rate.
-```
+
 
 
 # Stage2 - RF and Bagging 
-```{r}
+
 # Use either random forest, bagging or boosting to predict diabetes
 # Lab10
 # try bagging - classification
@@ -404,9 +401,9 @@ table(pre_rf_train2, test_stage2$diabetes)
 err_rf_stage2 <- mean(pre_rf_train2!=test_stage2$diabetes)
 
 varImpPlot(model_rf2)
-```
 
-```{r}
+
+
 # Comparison between stage1 and stage2
 data.frame(
     Names = c("Stage1: Test Error rate for logistic regression model", "Stage1: Test Error rate for LDA", "Stage1: Test Error rate for RF", "Stage2: Test Error rate for logistic regression model", "Stage2: Test Error rate for LDA", "Stage2: Test Error rate for RF"),
@@ -414,5 +411,3 @@ data.frame(
 
 
 summary(stage1_data)
-summary(stage2_data)
-```
