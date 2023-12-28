@@ -1,10 +1,3 @@
----
-title: "Consulting_Project"
-author: "Cheng Yin Chuang"
-date: "2023-10-12"
-output: html_document
----
-```{r}
 # libraries
 library(readr)
 library(ggplot2)
@@ -22,9 +15,8 @@ library(factoextra)
 library(car)
 library(gt)
 library(gtsummary)
-```
 
-```{r}
+
 # Data cleaned 
 Data_STAT4893W <- read_csv("C:\\Users\\54088\\OneDrive\\桌面\\SW\\S5 2023\\STAT 4893W\\Data_STAT4893W.csv")
 
@@ -48,9 +40,9 @@ cleaned_data <- cleaned_data[,-80]
 cleaned_data <- cleaned_data[,-129]
 cleaned_data <- cleaned_data[,-155]
 
-```
 
-```{r}
+
+
 # demographic
 demographic_data <- cleaned_data
 
@@ -135,9 +127,9 @@ trial2 %>% tbl_summary()
 
 
 
-```
 
-```{r}
+
+
 # Multiple Regression for secondary trauma
 SE5_model <- 5*cleaned_data$CFS_SecondaryTrauma
 
@@ -201,9 +193,8 @@ plot(SE_model)
 
 vif(SE_model)
 
-```
 
-```{r}
+
 #Multiple Regression for Job Burnout
 CFS_JB <- 8*cleaned_data$CFS_JobBurnout
 JB_model <- lm(CFS_JB ~  COPE_Positive + 
@@ -259,9 +250,7 @@ ggplot(rank, aes(x = rank_name, y = ranked)) +
     axis.text = element_text(size = 12)
   )
 
-```
 
-```{r}
 # Objective 2 
 coping_data <- cleaned_data[, -(1:160)]
 coping_data <- coping_data[, -(16:17)]
@@ -340,5 +329,3 @@ ggplot(my_dataset, aes(x=Entity, y=mean_scaled, color=cluster)) +
   theme(axis.text.x = element_text(angle=45, hjust=1)) +
   labs(title="K-means Clustering of Coping Strategies", y="Standardized Mean", x="Coping Strategies")
 
-
-```
