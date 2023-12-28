@@ -1,4 +1,4 @@
-```{r}
+
 # Import library
 library(readxl)
 library(dplyr)
@@ -19,9 +19,9 @@ library(glm2)
 library(nnet)
 library(tidyr)
 
-```
 
-```{r}
+
+
 #import data
 forestfires <- read.csv("C:\\Users\\54088\\OneDrive\\桌面\\SW\\S5 2023\\STAT 4893W\\Second Project\\forestfires.csv")
 
@@ -77,9 +77,9 @@ forestfires$RH <- as.numeric(forestfires$RH)
 #forestfires$Y <- as.factor(forestfires$Y)
 #forestfires$month <- as.factor(forestfires$month)
 #forestfires$day <- as.factor(forestfires$day)
-```
 
-```{r}
+
+
 EDA_forest <- forestfires
 par(mfrow = c(1, 9))
 
@@ -149,10 +149,7 @@ ggplot(EDA_forest, aes(x = area)) +
   theme_minimal() +
   ggtitle("Distribution of area")
 
-```
 
-
-```{r}
 
 # EDA for month
 month1 <- sum(forestfires$month == 1)
@@ -187,9 +184,7 @@ model1 <- lm(area ~ FFMC + DMC + ISI + temp + RH + wind + rain, data = forestfir
 vif(model1)
 # We can see that DC and month shows the strong linear dependence 
 
-```
 
-```{r}
 # Zero-inflated poisson model
 zim_fires <- forestfires
 zim_fires$area <- round(zim_fires$area)
@@ -231,9 +226,8 @@ predicted <- ifelse(predict_zim > 0.5, 1, 0)
 table(actual_zero, predicted)
 mean(predicted!=test_zim$area)
 
-```
 
-```{r}
+
 # hurdle model
 hurdle_fires <- forestfires
 hurdle_fires$area <- round(hurdle_fires$area)
@@ -268,9 +262,9 @@ data.frame(
 )
 mae_zim
 
-```
 
-```{r}
+
+
 # Monte Carlo simulation 
 # We want to do variables selection, for count model, since we need the variables be general, we exclude the X, Y, month, day because it can vary from place to place. We rank in RH, DMC, DC, temp, FFMC, ISI, wind and rain in order. 
 # For zero-hurdle model, wind is the only model that help us.
@@ -334,13 +328,12 @@ hist(sim_predictions)
 hist(forestfires$area)
 # I like the result because the plot looks like the real world situation. 
 
-```
+
 
 
 
 
 # Other methods
-```{r}
 # Lasso
 grid <- 10 ^ seq(-5, 5, length = 100)
 
@@ -371,10 +364,10 @@ mae_lasso
 mad_lasso <- mean(abs(prediction_lasso - mean(prediction_lasso)))
 mad_lasso
 
-```
 
 
-```{r}
+
+
 # 4052 single decision tree
 library(MASS)
 library(tree)
@@ -437,10 +430,10 @@ mae_rf_lecture
 mad_rf_lecture <- mean(abs(pred4r - mean(pred4r)))
 mad_rf_lecture
 
-```
 
 
-```{r}
+
+
 # Random Forest
 rf_fires <- forestfires
 
@@ -490,4 +483,4 @@ mad_rf
 
 cbind(mae_lasso, mae_rf)
 cbind(mad_lasso, mad_rf)
-```
+
