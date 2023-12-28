@@ -1,4 +1,3 @@
-```{r}
 # Getting the data
 # Source came from: https://www.kaggle.com/code/hely333/what-is-the-secret-of-academic-success/input
 data = student.mat
@@ -60,9 +59,8 @@ new_data$grade = as.numeric(new_data$grade)
 
 #Test if all variables and numeric
 str(new_data)
-```
 
-```{r}
+
 # Using histogram to see the numbers of the two gender
 library(ggplot2)
 ggplot(new_data, aes(x = gender)) +
@@ -84,9 +82,9 @@ boxplot(grade ~ absences, new_data)
 absence <- stripchart(new_data$grade ~ new_data$absences, vertical = TRUE, method = "jitter", pch = 19, add = TRUE, col = 1:length(levels(new_data$absences)))
 absece <- boxplot(new_data$grade ~ new_data$absences)
 abline(absence)
-```
 
-```{r}
+
+
 # In male's perspective
 Male <- subset(new_data, new_data$gender == "1")
 head(Male)
@@ -138,9 +136,9 @@ summary(model.6)
 
 anova(model.3, model.6)
 # We choose model 3 for our final model since the p-value is equal to 1. 
-```
 
-```{r}
+
+
 #test the qq-plot
 par(mfrow = c(1,2))
 random <- ranef(model.3)$gender[["(Intercept)"]]
@@ -156,4 +154,3 @@ plot(model.3, xlab = "Fitted Vlaues", ylab = "Residual",
      main = "Constant Variance Assumption - Random Intercept Model")
 
 # All assumption are met. 
-```
